@@ -7,6 +7,9 @@ for (let i = 0; i < 9; i++) {
 // creates DOM element that displays instructions
 let instructions = document.getElementsByClassName('instruction-container');
 
+// creates DOM element for Play Again button
+const playAgainButton = document.getElementById('play-again-button');
+
 // factory method
 const playerFactory = (playerName, symbol) => {
   const chooseSquare = () => console.log('Square Chosen by: ' + playerName);
@@ -38,6 +41,20 @@ function isFull(array) {
   return false;
 }
 
+// creates the ability to reset for a new game
+function clearAll() {
+  console.log("clear all called");
+  activePlayer = playerOne;
+  for(let i = 0; i < boardArray.length; i++) {
+    boardArray[i] = '';
+    let boardButton = document.getElementById(i);
+    boardButton.textContent = '';
+    boardButton.value = 'hasNotBeenClicked';
+  }
+  playAgainButton.textContent = 'Reset';
+  instructions[0].innerHTML = 'It is your turn, Player One!';
+}
+
 // creates function for when winner is determined
 function winnerDetermined(winnerValue) {
   if (winnerValue === 1) {
@@ -47,6 +64,7 @@ function winnerDetermined(winnerValue) {
   } else {
     instructions[0].innerHTML = 'It is a tie!';
   }
+  playAgainButton.textContent = 'Play again?';
 }
 
 // creates function to check for win conditions
